@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import RPi.GPIO as GPIO
-import time, subprocess
+import time, random
 
 GPIO.setmode(GPIO.BCM)
 
@@ -12,6 +12,9 @@ for s in "abcdefg":
 zif=[16, 12, 7, 6]
 for z in zif:
     GPIO.setup(z, GPIO.OUT, initial=1)
+
+dp = 5
+GPIO.setup(dp, GPIO.OUT, initial=0)
 
 LED1 = 24
 GPIO.setup(LED1, GPIO.OUT, initial=0)
@@ -60,14 +63,9 @@ def za(n):
 
         GPIO.output(zif[i], 0)
     
-        for s in zahl[n]:
-            GPIO.output(seg[s], 0)
-        
-        GPIO.output(zif[i], 0)
-        
-        for s in zahl[i]:
+        for s in zahl[z[i]]:
             GPIO.output(seg[s], 1)
-
+        
         if i == 1:
             GPIO.output(dp, 1)
         else:
@@ -108,7 +106,7 @@ try:
                         GPIO.output(LED2, 0)
                         for j in range(100):
                             za(x * 100 + t)
-                break;
+                    break;
                         
 except KeyboardInterrupt:
     GPIO.cleanup()
